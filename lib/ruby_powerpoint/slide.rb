@@ -53,11 +53,9 @@ module RubyPowerpoint
     end
 
     def images
-      image_elements(@relation_xml)
-        .map.each do |node|
-          @presentation.files.file.open(
-            node['Target'].gsub('..', 'ppt'))
-        end
+      image_elements(@relation_xml).map.each do |node|
+        @presentation.files.entries.find { |e| e.name == node['Target'].gsub('..', 'ppt') }
+      end
     end
 
     def slide_num
